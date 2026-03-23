@@ -218,6 +218,44 @@
         line-height: 1.6;
       }
 
+      /* ===== CREDENTIAL BANNER ===== */
+      .credential-banner {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 1.25rem auto 0.5rem;
+        padding: 0.75rem 1.25rem;
+        background: linear-gradient(135deg, rgba(51, 112, 255, 0.12), rgba(0, 212, 255, 0.08));
+        border: 1px solid rgba(51, 112, 255, 0.25);
+        border-radius: 10px;
+        max-width: 600px;
+        color: var(--text-primary);
+        transition: border-color 0.3s var(--easing), background 0.3s var(--easing);
+      }
+      .credential-banner:hover {
+        border-color: var(--accent);
+        background: linear-gradient(135deg, rgba(51, 112, 255, 0.18), rgba(0, 212, 255, 0.12));
+      }
+      .credential-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+      .credential-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        font-family: var(--font-cn);
+        color: var(--text-primary);
+      }
+      .credential-text strong {
+        font-size: 0.9rem;
+        color: var(--accent);
+      }
+      .credential-sub {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+      }
+
       /* ===== STATS ===== */
       .stats-row {
         display: flex;
@@ -246,7 +284,147 @@
         margin-top: 0.5rem;
       }
 
-      /* ===== TIMELINE ===== */
+      /* ===== HORIZONTAL TIMELINE ===== */
+      .h-timeline {
+        display: flex;
+        gap: 0;
+        width: 100%;
+        max-width: 1100px;
+        margin-top: 2rem;
+        position: relative;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+      }
+
+      .h-timeline::before {
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--card-border);
+      }
+
+      .h-timeline-item {
+        flex: 1;
+        min-width: 140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        padding: 0 0.5rem;
+      }
+
+      .h-timeline-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid var(--bg-dark);
+        box-shadow: 0 0 8px var(--accent-glow);
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+      }
+
+      .h-timeline-dot.current {
+        width: 16px;
+        height: 16px;
+        box-shadow: 0 0 16px var(--accent-glow);
+      }
+
+      .h-timeline-year {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+        white-space: nowrap;
+      }
+
+      .h-timeline-role {
+        font-family: var(--font-cn);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        line-height: 1.3;
+      }
+
+      .h-timeline-company {
+        font-family: var(--font-cn);
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        line-height: 1.3;
+      }
+
+      @media (max-width: 1024px) {
+        .h-timeline {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scroll-snap-type: x proximity;
+        }
+        .h-timeline-item {
+          min-width: 120px;
+          scroll-snap-align: center;
+        }
+      }
+
+      /* ===== SKILLS GRID ===== */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1000px;
+        margin-top: 1.5rem;
+      }
+
+      .skill-block {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .skill-block-title {
+        font-family: var(--font-cn);
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .skill-tag {
+        font-family: var(--font-cn);
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        background: rgba(0, 212, 255, 0.06);
+        border: 1px solid rgba(0, 212, 255, 0.15);
+        border-radius: 6px;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 768px) {
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ===== TIMELINE (vertical, kept for reference) ===== */
       .timeline {
         display: flex;
         flex-direction: column;
@@ -430,12 +608,12 @@
   <body>
     <div class="deck-container" id="deck">
       
-      <!-- Section 1: INTRO -->
+      <!-- Section 0: INTRO -->
       <section data-index="0">
         <h1 class="animate-in" style="font-family: var(--font-cn);">邵明鉴<br/><span class="accent" style="font-size: 0.6em;">飞书 × AI · 效率赋能</span></h1>
-        <p class="subtitle animate-in delay-1">12年数字化业务经验 · 3年+飞书深度落地 · AI工具链实战</p>
+        <p class="subtitle animate-in delay-1">12 年数字化业务经验 · 3 年 + 飞书深度落地 · AI 工具链实战</p>
         <div class="intro-tags animate-in delay-2">
-          <span class="tag highlight">飞书 3年+</span>
+          <span class="tag highlight">飞书 3 年+</span>
           <span class="tag highlight">AI Agent 开发</span>
           <span class="tag">40+ 流程数字化</span>
           <span class="tag">英语专八</span>
@@ -443,12 +621,171 @@
         </div>
       </section>
 
-      <!-- Section 2: FEISHU EXPERTISE -->
+      <!-- Section 1: CAREER TIMELINE (horizontal) -->
       <section data-index="1">
-        <h2 class="animate-in" style="font-family: var(--font-cn);">飞书，<span class="accent">我的主战场</span></h2>
+        <h2 class="animate-in" style="font-family: var(--font-cn);">职业<span class="accent">轨迹</span></h2>
+        <p class="animate-in delay-1" style="font-family: var(--font-cn); color: var(--text-secondary); text-align: center; margin-bottom: 1rem;">12 年 · 出版 → 教育 → 企业服务 → AI</p>
+        <div class="h-timeline animate-in delay-2">
+          <div class="h-timeline-item">
+            <div class="h-timeline-year">2013–2017</div>
+            <div class="h-timeline-dot"></div>
+            <div class="h-timeline-role">数字出版负责人</div>
+            <div class="h-timeline-company">上海译文出版社</div>
+          </div>
+          <div class="h-timeline-item">
+            <div class="h-timeline-year">2018–2019</div>
+            <div class="h-timeline-dot"></div>
+            <div class="h-timeline-role">数字业务负责人</div>
+            <div class="h-timeline-company">企鹅兰登</div>
+          </div>
+          <div class="h-timeline-item">
+            <div class="h-timeline-year">2019–2020</div>
+            <div class="h-timeline-dot"></div>
+            <div class="h-timeline-role">业务拓展总监</div>
+            <div class="h-timeline-company">玩瞳科技</div>
+          </div>
+          <div class="h-timeline-item">
+            <div class="h-timeline-year">2021</div>
+            <div class="h-timeline-dot"></div>
+            <div class="h-timeline-role">BD 经理</div>
+            <div class="h-timeline-company">牛津大学出版社</div>
+          </div>
+          <div class="h-timeline-item">
+            <div class="h-timeline-year">2021–2024</div>
+            <div class="h-timeline-dot"></div>
+            <div class="h-timeline-role">IT 与信息化总监</div>
+            <div class="h-timeline-company">HUBS</div>
+          </div>
+          <div class="h-timeline-item">
+            <div class="h-timeline-year">2024–2025</div>
+            <div class="h-timeline-dot"></div>
+            <div class="h-timeline-role">信息中心总监</div>
+            <div class="h-timeline-company">接力文化</div>
+          </div>
+          <div class="h-timeline-item">
+            <div class="h-timeline-year">2025–Now</div>
+            <div class="h-timeline-dot current"></div>
+            <div class="h-timeline-role">AI 产品 / ERP 顾问</div>
+            <div class="h-timeline-company">启元科技</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: SKILLS OVERVIEW -->
+      <section data-index="2">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">核心<span class="accent">技能</span></h2>
+        <p class="animate-in delay-1" style="font-family: var(--font-cn); color: var(--text-secondary); text-align: center; max-width: 700px;">
+          从内容产业数字化到 AIGC 产品落地，从飞书效率体系到 ERP 全流程交付
+        </p>
+        <div class="skills-grid animate-in delay-2">
+          <div class="skill-block">
+            <div class="skill-block-title">🤖 AIGC 产品与技术</div>
+            <div class="skill-tags">
+              <span class="skill-tag">MCP 智能体开发</span>
+              <span class="skill-tag">AI Agent 工作流</span>
+              <span class="skill-tag">Prompt Engineering</span>
+              <span class="skill-tag">ComfyUI 图文生成</span>
+              <span class="skill-tag">RAG 知识库</span>
+              <span class="skill-tag">本地大模型部署</span>
+            </div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-block-title">📋 产品设计与落地</div>
+            <div class="skill-tags">
+              <span class="skill-tag">PRD 撰写（20+ 单据）</span>
+              <span class="skill-tag">AI 辅助 HTML 原型</span>
+              <span class="skill-tag">需求调研与竞品分析</span>
+              <span class="skill-tag">验收标准制定</span>
+              <span class="skill-tag">飞书项目合作讲师</span>
+            </div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-block-title">🏢 业务与跨部门协调</div>
+            <div class="skill-tags">
+              <span class="skill-tag">项目交付 3000 万+</span>
+              <span class="skill-tag">央企/外企大客户</span>
+              <span class="skill-tag">供应商管理</span>
+              <span class="skill-tag">团队组建与培训</span>
+              <span class="skill-tag">ISO27001 审计</span>
+            </div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-block-title">🔧 信息化基础</div>
+            <div class="skill-tags">
+              <span class="skill-tag">飞书 3 年 + 深度落地</span>
+              <span class="skill-tag">ERP 实施（用友 YonBIP）</span>
+              <span class="skill-tag">CRM/SCRM 搭建</span>
+              <span class="skill-tag">服务器运维</span>
+              <span class="skill-tag">网络架构</span>
+            </div>
+          </div>
+        </div>
+        <div class="intro-tags animate-in delay-3" style="margin-top: 1.5rem;">
+          <span class="tag highlight">英语专八</span>
+          <span class="tag highlight">德语专四</span>
+          <span class="tag">上海外国语大学</span>
+        </div>
+      </section>
+
+      <!-- Section 3: FEISHU — BUSINESS SUPPORT -->
+      <section data-index="3">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">飞书，<span class="accent">我的主战场</span> · 业务支持</h2>
         <div class="stats-row animate-in delay-1">
           <div class="stat-item">
-            <div class="stat-value">3年+</div>
+            <div class="stat-value">872</div>
+            <div class="stat-desc">CRM 客户规模</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">¥4600 万</div>
+            <div class="stat-desc">业绩目标规划</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">¥1 亿</div>
+            <div class="stat-desc">商机管线</div>
+          </div>
+        </div>
+        <a href="https://project.feishu.cn/home/blogs/practice/hubs" target="_blank" rel="noopener" class="credential-banner animate-in delay-1" style="text-decoration: none;">
+          <span class="credential-icon">🏅</span>
+          <span class="credential-text">
+            <strong>飞书项目官方最佳实践讲师</strong>
+            <span class="credential-sub">受邀分享《哈商：为多家世界 500 强培养管理者》案例 →</span>
+          </span>
+        </a>
+        <div class="cards-row animate-in delay-2">
+          <div class="card">
+            <div class="card-icon">📋</div>
+            <div class="card-title">飞书项目 CRM</div>
+            <div class="card-desc">从零搭建 8 大模块（客户/商机/合同/回款…），承载全公司销售管理</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-title">数据看板</div>
+            <div class="card-desc">转化漏斗、运营瓶颈热力图、多维数据分析，驱动管理决策</div>
+          </div>
+        </div>
+        <div class="cards-row animate-in delay-3">
+          <div class="card">
+            <div class="card-icon">🧩</div>
+            <div class="card-title">多维表格业务小平台</div>
+            <div class="card-desc">用多维表格快速搭建轻量业务系统——排期、资源分配、进度追踪</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚀</div>
+            <div class="card-title">部门飞书落地陪跑</div>
+            <div class="card-desc">Wiki 知识库搭建、协作表规范、日常工作流梳理，手把手带团队跑起来</div>
+          </div>
+        </div>
+        <p class="animate-in delay-4" style="text-align: center; margin-top: 1.5rem; color: var(--accent); font-family: var(--font-cn);">
+          HUBS · 3 年 · 从零搭建飞书数字化体系
+        </p>
+      </section>
+
+      <!-- Section 4: FEISHU — HR & INTERNAL SUPPORT -->
+      <section data-index="4">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">飞书，<span class="accent">我的主战场</span> · HR 支持</h2>
+        <div class="stats-row animate-in delay-1">
+          <div class="stat-item">
+            <div class="stat-value">3 年+</div>
             <div class="stat-desc">飞书深度使用</div>
           </div>
           <div class="stat-item">
@@ -459,62 +796,63 @@
             <div class="stat-value">10,000+</div>
             <div class="stat-desc">流程年运行次数</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">872</div>
-            <div class="stat-desc">CRM客户规模</div>
-          </div>
         </div>
         <div class="cards-row animate-in delay-2">
           <div class="card">
-            <div class="card-icon">📋</div>
-            <div class="card-title">飞书项目 CRM</div>
-            <div class="card-desc">从零搭建8大模块（客户/商机/合同/回款…），承载4600万业绩目标规划</div>
+            <div class="card-icon">🎫</div>
+            <div class="card-title">服务台 ITSM</div>
+            <div class="card-desc">IT 服务工单系统，问题分类、自动派单、SLA 跟踪，支持效率提升 2 倍</div>
           </div>
           <div class="card">
-            <div class="card-icon">⚙️</div>
-            <div class="card-title">OA + ITSM</div>
-            <div class="card-desc">审批流、服务台、入离职安全流程，IT支持效率提升2倍</div>
+            <div class="card-icon">🔐</div>
+            <div class="card-title">入离职安全流程</div>
+            <div class="card-desc">账号开通/回收、设备交接、权限审批全链路自动化，零遗漏</div>
           </div>
           <div class="card">
-            <div class="card-icon">📊</div>
-            <div class="card-title">数据看板</div>
-            <div class="card-desc">转化漏斗、运营瓶颈热力图、多维数据分析，驱动管理决策</div>
+            <div class="card-icon">📝</div>
+            <div class="card-title">OA 审批流</div>
+            <div class="card-desc">请假、报销、采购、合同审批，多级流转 + 条件分支 + 自动归档</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🤝</div>
+            <div class="card-title">HR IT 支持</div>
+            <div class="card-desc">给 HR 团队的日常 IT 支持体系——答疑群、操作手册、定期培训</div>
           </div>
         </div>
         <p class="animate-in delay-3" style="text-align: center; margin-top: 1.5rem; color: var(--accent); font-family: var(--font-cn);">
-          HUBS · 3年 · 从零搭建飞书数字化体系
+          HUBS · 接力文化 · 内部支持体系从零搭建
         </p>
       </section>
 
-      <!-- Section 3: AI + FEISHU INTEGRATION -->
-      <section data-index="2">
-        <h2 class="animate-in" style="font-family: var(--font-cn);">AI × 飞书 =<span class="accent"> 5倍效率</span></h2>
+      <!-- Section 5: AI + FEISHU INTEGRATION -->
+      <section data-index="5">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">AI × 飞书 =<span class="accent"> 5 倍效率</span></h2>
         <div class="cards-row animate-in delay-1" style="flex-direction: column; gap: 1.5rem; max-width: 800px;">
           <div class="card">
-            <div class="card-title">🤖 MCP智能体 → 飞书8大模块</div>
-            <div class="card-desc">自建MCP Server对接飞书文档、多维表格、Wiki、群组、日历、任务等，AI Agent自动执行跨系统操作</div>
+            <div class="card-title">🤖 MCP 智能体 → 飞书 8 大模块</div>
+            <div class="card-desc">自建 MCP Server 对接飞书文档、多维表格、Wiki、群组、日历、任务等，AI Agent 自动执行跨系统操作</div>
           </div>
           <div class="card">
-            <div class="card-title">📝 PRD自动生成 → Wiki同步</div>
-            <div class="card-desc">AI辅助撰写PRD，7步全自动同步至飞书Wiki，含Mermaid图表渲染、附件上传、版本控制</div>
+            <div class="card-title">📝 PRD 自动生成 → Wiki 同步</div>
+            <div class="card-desc">AI 辅助撰写 PRD，7 步全自动同步至飞书 Wiki，含 Mermaid 图表渲染、附件上传、版本控制</div>
           </div>
           <div class="card">
-            <div class="card-title">🧠 RAG知识库 → 智能问答</div>
-            <div class="card-desc">20+ PRD文档语义检索，团队成员随时查询业务规则和系统逻辑，知识复用效率倍增</div>
+            <div class="card-title">🧠 RAG 知识库 → 智能问答</div>
+            <div class="card-desc">20+ PRD 文档语义检索，团队成员随时查询业务规则和系统逻辑，知识复用效率倍增</div>
           </div>
         </div>
         <p class="animate-in delay-2" style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-family: var(--font-cn);">
-          启元科技 · ERP实施中创新引入AI，文档处理效率提升5倍+
+          启元科技 · ERP 实施中创新引入 AI，文档处理效率提升 5 倍 +
         </p>
       </section>
 
-      <!-- Section 4: AI TOOL ADOPTION -->
-      <section data-index="3">
-        <h2 class="animate-in" style="font-family: var(--font-cn);">全员AI推广<span class="accent">落地经验</span></h2>
+      <!-- Section 6: AI TOOL ADOPTION -->
+      <section data-index="6">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">全员 AI 推广<span class="accent">落地经验</span></h2>
         <div class="stats-row animate-in delay-1">
           <div class="stat-item">
             <div class="stat-value">100%</div>
-            <div class="stat-desc">员工掌握AI工具</div>
+            <div class="stat-desc">员工掌握 AI 工具</div>
           </div>
           <div class="stat-item">
             <div class="stat-value">30%+</div>
@@ -529,17 +867,17 @@
           <div class="card">
             <div class="card-icon">🎯</div>
             <div class="card-title">找痛点</div>
-            <div class="card-desc">按岗位调研（销售/运营/内容/客服），找到AI能解决的真实场景</div>
+            <div class="card-desc">按岗位调研（销售/运营/内容/客服），找到 AI 能解决的真实场景</div>
           </div>
           <div class="card">
             <div class="card-icon">🔧</div>
             <div class="card-title">做方案</div>
-            <div class="card-desc">工具选型评测报告、差异化使用策略、最小可用demo验证效果</div>
+            <div class="card-desc">工具选型评测报告、差异化使用策略、最小可用 demo 验证效果</div>
           </div>
           <div class="card">
             <div class="card-icon">📚</div>
             <div class="card-title">推落地</div>
-            <div class="card-desc">SOP手册 + 培训授课 + 答疑群 + 使用率跟踪，持续迭代</div>
+            <div class="card-desc">SOP 手册 + 培训授课 + 答疑群 + 使用率跟踪，持续迭代</div>
           </div>
         </div>
         <p class="animate-in delay-3" style="text-align: center; margin-top: 1.5rem; color: var(--accent); font-family: var(--font-cn);">
@@ -547,75 +885,26 @@
         </p>
       </section>
 
-      <!-- Section 5: JD MATCH -->
-      <section data-index="4">
+      <!-- Section 7: JD MATCH -->
+      <section data-index="7">
         <h2 class="animate-in" style="font-family: var(--font-cn);">岗位匹配<span class="accent">一览</span></h2>
         <div class="match-grid animate-in delay-1">
-          <div class="match-item"><span class="match-check">✓</span> 飞书全场景落地 — 3年+实战</div>
-          <div class="match-item"><span class="match-check">✓</span> AI × 飞书打通 — MCP智能体</div>
-          <div class="match-item"><span class="match-check">✓</span> AI文档生成/多维表格/会议纪要</div>
-          <div class="match-item"><span class="match-check">✓</span> 全员AI培训推广 — 100%覆盖</div>
+          <div class="match-item"><span class="match-check">✓</span> 飞书全场景落地 — 3 年 + 实战</div>
+          <div class="match-item"><span class="match-check">✓</span> AI × 飞书打通 — MCP 智能体</div>
+          <div class="match-item"><span class="match-check">✓</span> AI 文档生成/多维表格/会议纪要</div>
+          <div class="match-item"><span class="match-check">✓</span> 全员 AI 培训推广 — 100% 覆盖</div>
           <div class="match-item"><span class="match-check">✓</span> 跨部门需求调研与方案落地</div>
           <div class="match-item"><span class="match-check">✓</span> 效果评估体系 — 数据看板驱动</div>
-          <div class="match-item"><span class="match-check">✓</span> 复杂流程搭建 — 40+流程经验</div>
-          <div class="match-item"><span class="match-check">✓</span> 培训授课能力 — SOP+手册+视频</div>
+          <div class="match-item"><span class="match-check">✓</span> 复杂流程搭建 — 40+ 流程经验</div>
+          <div class="match-item"><span class="match-check">✓</span> 培训授课能力 — SOP+ 手册 + 视频</div>
         </div>
         <p class="animate-in delay-2" style="text-align: center; margin-top: 2rem; color: var(--text-muted); font-family: var(--font-cn); font-size: 1rem;">
-          市场上很少有人同时具备 <span class="accent">飞书3年深度落地</span> + <span class="accent">AI工具链实战开发</span>
+          市场上很少有人同时具备 <span class="accent">飞书 3 年深度落地</span> + <span class="accent">AI 工具链实战开发</span>
         </p>
       </section>
 
-      <!-- Section 6: CAREER TIMELINE -->
-      <section data-index="5">
-        <h2 class="animate-in" style="font-family: var(--font-cn);">职业<span class="accent">轨迹</span></h2>
-        <div class="timeline">
-          <div class="timeline-item animate-in delay-1">
-            <span class="timeline-year">2025–Now</span>
-            <div>
-              <div class="timeline-role">AI产品与ERP实施顾问</div>
-              <div class="timeline-company">启元科技 · MCP智能体 + 飞书集成 + 用友YonBIP</div>
-            </div>
-          </div>
-          <div class="timeline-item animate-in delay-1">
-            <span class="timeline-year">2024–2025</span>
-            <div>
-              <div class="timeline-role">数字出版信息中心总监（扭亏为盈）</div>
-              <div class="timeline-company">接力文化 · 飞书ITSM/OA · 10人团队</div>
-            </div>
-          </div>
-          <div class="timeline-item animate-in delay-2">
-            <span class="timeline-year">2021–2024</span>
-            <div>
-              <div class="timeline-role">IT与信息化总监（飞书3年深度落地）</div>
-              <div class="timeline-company">HUBS · 40+流程 · CRM · 3000万+交付</div>
-            </div>
-          </div>
-          <div class="timeline-item animate-in delay-2">
-            <span class="timeline-year">2021</span>
-            <div>
-              <div class="timeline-role">业务拓展经理（6个月签约3500万）</div>
-              <div class="timeline-company">牛津大学出版社</div>
-            </div>
-          </div>
-          <div class="timeline-item animate-in delay-3">
-            <span class="timeline-year">2018–2020</span>
-            <div>
-              <div class="timeline-role">数字业务负责人 / 业务拓展总监</div>
-              <div class="timeline-company">企鹅兰登 · 玩瞳科技 · 产品专利持有人</div>
-            </div>
-          </div>
-          <div class="timeline-item animate-in delay-4">
-            <span class="timeline-year">2013–2017</span>
-            <div>
-              <div class="timeline-role">数字出版负责人（年收入2万→430万）</div>
-              <div class="timeline-company">上海译文出版社 · 创新奖获得者</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 7: CLOSING -->
-      <section data-index="6">
+      <!-- Section 8: CLOSING -->
+      <section data-index="8">
         <h1 class="animate-in" style="font-size: clamp(2rem, 4vw, 3.5rem); font-family: var(--font-cn);">华图 All in AI，<br/><span class="accent">我刚好准备好了。</span></h1>
         <p class="subtitle animate-in delay-1" style="margin-top: 2rem;">
           <a href="mailto:mingjian@mjshao.fun" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--card-border);">mingjian@mjshao.fun</a>
@@ -623,7 +912,7 @@
           <a href="https://mjshao.fun" target="_blank" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--card-border);">mjshao.fun</a>
         </p>
         <p class="animate-in delay-2" style="margin-top: 2rem; color: var(--text-muted); font-family: var(--font-cn); font-size: 1rem; max-width: 500px; text-align: center;">
-          飞书千校落地 × AI工具链开发 × 全员赋能推广<br/>
+          飞书千校落地 × AI 工具链开发 × 全员赋能推广<br/>
           这三件事，我都做过。
         </p>
       </section>
