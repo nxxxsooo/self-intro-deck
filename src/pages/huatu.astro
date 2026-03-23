@@ -1,0 +1,715 @@
+---
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>邵明鉴 — 飞书 & AI 效率赋能</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    
+    <!-- Google Fonts: Sora (display) + Inter (body) + Noto Sans SC (Chinese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script defer src="https://analytics.mjshao.fun/script.js" data-website-id="93f7d802-084f-45f6-91bf-72a7b1ee6262"></script>
+    <style>
+      /* ===== RESET & BASE ===== */
+      *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg-dark: #0a0a0f;
+        --bg-gradient: linear-gradient(180deg, #0a0a0f 0%, #0f0f1a 100%);
+        --accent: #00d4ff;
+        --accent-glow: rgba(0, 212, 255, 0.3);
+        --accent-warm: #22d3ee;
+        --feishu-blue: #3370ff;
+        --text-primary: #ffffff;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --font-display: 'Sora', 'Noto Sans SC', sans-serif;
+        --font-body: 'Inter', 'Noto Sans SC', sans-serif;
+        --font-cn: 'Noto Sans SC', sans-serif;
+        --easing: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--bg-dark);
+        background-image: var(--bg-gradient);
+        color: var(--text-primary);
+        overflow: hidden;
+        line-height: 1.6;
+      }
+
+      /* ===== SCROLL CONTAINER ===== */
+      .deck-container {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        position: relative;
+      }
+
+      /* ===== SECTIONS ===== */
+      section {
+        height: 100vh;
+        width: 100%;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 6rem;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(ellipse at 50% 0%, rgba(0, 212, 255, 0.05) 0%, transparent 60%);
+        pointer-events: none;
+      }
+
+      /* ===== ENTRANCE ANIMATIONS ===== */
+      .animate-in {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s var(--easing), transform 0.8s var(--easing);
+      }
+
+      .animate-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .delay-1 { transition-delay: 0.1s; }
+      .delay-2 { transition-delay: 0.2s; }
+      .delay-3 { transition-delay: 0.3s; }
+      .delay-4 { transition-delay: 0.4s; }
+
+      /* ===== TYPOGRAPHY ===== */
+      h1 {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+      }
+
+      h2 {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-family: var(--font-display);
+        font-size: clamp(1.25rem, 2vw, 1.75rem);
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: clamp(1rem, 1.5vw, 1.25rem);
+        color: var(--text-secondary);
+        max-width: 60ch;
+        line-height: 1.7;
+      }
+
+      .subtitle {
+        font-family: var(--font-cn);
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
+        font-weight: 400;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+
+      .accent {
+        color: var(--accent);
+      }
+
+      .accent-warm {
+        color: var(--accent-warm);
+      }
+
+      /* ===== SECTION 1: INTRO ===== */
+      .intro-tags {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .tag {
+        font-family: var(--font-cn);
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 9999px;
+        color: var(--text-muted);
+      }
+
+      .tag.highlight {
+        border-color: rgba(0, 212, 255, 0.3);
+        color: var(--accent);
+        background: rgba(0, 212, 255, 0.05);
+      }
+
+      /* ===== CARDS & GRID ===== */
+      .cards-row {
+        display: flex;
+        gap: 2rem;
+        width: 100%;
+        max-width: 1000px;
+        margin: 2rem 0;
+      }
+
+      .card {
+        flex: 1;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 1rem;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .card-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .card-title {
+        font-family: var(--font-cn);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .card-desc {
+        font-family: var(--font-cn);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* ===== STATS ===== */
+      .stats-row {
+        display: flex;
+        gap: 3rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      .stat-desc {
+        font-family: var(--font-cn);
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin-top: 0.5rem;
+      }
+
+      /* ===== TIMELINE ===== */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 800px;
+        margin-top: 2rem;
+      }
+
+      .timeline-item {
+        display: flex;
+        gap: 1.5rem;
+        align-items: baseline;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      .timeline-year {
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent);
+        min-width: 100px;
+        flex-shrink: 0;
+      }
+
+      .timeline-role {
+        font-family: var(--font-cn);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .timeline-company {
+        font-family: var(--font-cn);
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      /* ===== NAVIGATION DOTS ===== */
+      .nav-dots {
+        position: fixed;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        z-index: 100;
+      }
+
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--card-border);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+      }
+
+      .nav-dot.active {
+        background: var(--accent);
+        transform: scale(1.3);
+        box-shadow: 0 0 10px var(--accent-glow);
+      }
+
+      .nav-dot:hover {
+        background: var(--text-muted);
+      }
+
+      /* ===== SCROLL INDICATOR ===== */
+      .scroll-indicator {
+        position: fixed;
+        right: 2rem;
+        bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        animation: bounce 2s infinite;
+      }
+
+      .scroll-indicator svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--text-muted);
+      }
+
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+      }
+
+      /* ===== BOTTOM RIGHT SPACER (for webcam) ===== */
+      .webcam-spacer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 280px;
+        height: 200px;
+        pointer-events: none;
+        z-index: 99;
+      }
+
+      /* ===== MATCH HIGHLIGHT ===== */
+      .match-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        width: 100%;
+        max-width: 900px;
+        margin-top: 1.5rem;
+      }
+
+      .match-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 0.75rem;
+        font-family: var(--font-cn);
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+      }
+
+      .match-check {
+        color: var(--accent);
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 1024px) {
+        section {
+          padding: 3rem 2rem;
+        }
+        
+        .cards-row {
+          flex-direction: column;
+        }
+
+        .match-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .nav-dots {
+          right: 1rem;
+        }
+        
+        .webcam-spacer {
+          width: 200px;
+          height: 150px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .stats-row {
+          gap: 1.5rem;
+        }
+        
+        .timeline-item {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        
+        .timeline-year {
+          min-width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck-container" id="deck">
+      
+      <!-- Section 1: INTRO -->
+      <section data-index="0">
+        <h1 class="animate-in" style="font-family: var(--font-cn);">邵明鉴<br/><span class="accent" style="font-size: 0.6em;">飞书 × AI · 效率赋能</span></h1>
+        <p class="subtitle animate-in delay-1">12年数字化业务经验 · 3年+飞书深度落地 · AI工具链实战</p>
+        <div class="intro-tags animate-in delay-2">
+          <span class="tag highlight">飞书 3年+</span>
+          <span class="tag highlight">AI Agent 开发</span>
+          <span class="tag">40+ 流程数字化</span>
+          <span class="tag">英语专八</span>
+          <span class="tag">德语专四</span>
+        </div>
+      </section>
+
+      <!-- Section 2: FEISHU EXPERTISE -->
+      <section data-index="1">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">飞书，<span class="accent">我的主战场</span></h2>
+        <div class="stats-row animate-in delay-1">
+          <div class="stat-item">
+            <div class="stat-value">3年+</div>
+            <div class="stat-desc">飞书深度使用</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">40+</div>
+            <div class="stat-desc">业务流程线上化</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">10,000+</div>
+            <div class="stat-desc">流程年运行次数</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">872</div>
+            <div class="stat-desc">CRM客户规模</div>
+          </div>
+        </div>
+        <div class="cards-row animate-in delay-2">
+          <div class="card">
+            <div class="card-icon">📋</div>
+            <div class="card-title">飞书项目 CRM</div>
+            <div class="card-desc">从零搭建8大模块（客户/商机/合同/回款…），承载4600万业绩目标规划</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚙️</div>
+            <div class="card-title">OA + ITSM</div>
+            <div class="card-desc">审批流、服务台、入离职安全流程，IT支持效率提升2倍</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-title">数据看板</div>
+            <div class="card-desc">转化漏斗、运营瓶颈热力图、多维数据分析，驱动管理决策</div>
+          </div>
+        </div>
+        <p class="animate-in delay-3" style="text-align: center; margin-top: 1.5rem; color: var(--accent); font-family: var(--font-cn);">
+          HUBS · 3年 · 从零搭建飞书数字化体系
+        </p>
+      </section>
+
+      <!-- Section 3: AI + FEISHU INTEGRATION -->
+      <section data-index="2">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">AI × 飞书 =<span class="accent"> 5倍效率</span></h2>
+        <div class="cards-row animate-in delay-1" style="flex-direction: column; gap: 1.5rem; max-width: 800px;">
+          <div class="card">
+            <div class="card-title">🤖 MCP智能体 → 飞书8大模块</div>
+            <div class="card-desc">自建MCP Server对接飞书文档、多维表格、Wiki、群组、日历、任务等，AI Agent自动执行跨系统操作</div>
+          </div>
+          <div class="card">
+            <div class="card-title">📝 PRD自动生成 → Wiki同步</div>
+            <div class="card-desc">AI辅助撰写PRD，7步全自动同步至飞书Wiki，含Mermaid图表渲染、附件上传、版本控制</div>
+          </div>
+          <div class="card">
+            <div class="card-title">🧠 RAG知识库 → 智能问答</div>
+            <div class="card-desc">20+ PRD文档语义检索，团队成员随时查询业务规则和系统逻辑，知识复用效率倍增</div>
+          </div>
+        </div>
+        <p class="animate-in delay-2" style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-family: var(--font-cn);">
+          启元科技 · ERP实施中创新引入AI，文档处理效率提升5倍+
+        </p>
+      </section>
+
+      <!-- Section 4: AI TOOL ADOPTION -->
+      <section data-index="3">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">全员AI推广<span class="accent">落地经验</span></h2>
+        <div class="stats-row animate-in delay-1">
+          <div class="stat-item">
+            <div class="stat-value">100%</div>
+            <div class="stat-desc">员工掌握AI工具</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">30%+</div>
+            <div class="stat-desc">内容产出效率提升</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">70+</div>
+            <div class="stat-desc">AI Agent Skills</div>
+          </div>
+        </div>
+        <div class="cards-row animate-in delay-2">
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <div class="card-title">找痛点</div>
+            <div class="card-desc">按岗位调研（销售/运营/内容/客服），找到AI能解决的真实场景</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔧</div>
+            <div class="card-title">做方案</div>
+            <div class="card-desc">工具选型评测报告、差异化使用策略、最小可用demo验证效果</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">📚</div>
+            <div class="card-title">推落地</div>
+            <div class="card-desc">SOP手册 + 培训授课 + 答疑群 + 使用率跟踪，持续迭代</div>
+          </div>
+        </div>
+        <p class="animate-in delay-3" style="text-align: center; margin-top: 1.5rem; color: var(--accent); font-family: var(--font-cn);">
+          不是推技术，是解决问题
+        </p>
+      </section>
+
+      <!-- Section 5: JD MATCH -->
+      <section data-index="4">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">岗位匹配<span class="accent">一览</span></h2>
+        <div class="match-grid animate-in delay-1">
+          <div class="match-item"><span class="match-check">✓</span> 飞书全场景落地 — 3年+实战</div>
+          <div class="match-item"><span class="match-check">✓</span> AI × 飞书打通 — MCP智能体</div>
+          <div class="match-item"><span class="match-check">✓</span> AI文档生成/多维表格/会议纪要</div>
+          <div class="match-item"><span class="match-check">✓</span> 全员AI培训推广 — 100%覆盖</div>
+          <div class="match-item"><span class="match-check">✓</span> 跨部门需求调研与方案落地</div>
+          <div class="match-item"><span class="match-check">✓</span> 效果评估体系 — 数据看板驱动</div>
+          <div class="match-item"><span class="match-check">✓</span> 复杂流程搭建 — 40+流程经验</div>
+          <div class="match-item"><span class="match-check">✓</span> 培训授课能力 — SOP+手册+视频</div>
+        </div>
+        <p class="animate-in delay-2" style="text-align: center; margin-top: 2rem; color: var(--text-muted); font-family: var(--font-cn); font-size: 1rem;">
+          市场上很少有人同时具备 <span class="accent">飞书3年深度落地</span> + <span class="accent">AI工具链实战开发</span>
+        </p>
+      </section>
+
+      <!-- Section 6: CAREER TIMELINE -->
+      <section data-index="5">
+        <h2 class="animate-in" style="font-family: var(--font-cn);">职业<span class="accent">轨迹</span></h2>
+        <div class="timeline">
+          <div class="timeline-item animate-in delay-1">
+            <span class="timeline-year">2025–Now</span>
+            <div>
+              <div class="timeline-role">AI产品与ERP实施顾问</div>
+              <div class="timeline-company">启元科技 · MCP智能体 + 飞书集成 + 用友YonBIP</div>
+            </div>
+          </div>
+          <div class="timeline-item animate-in delay-1">
+            <span class="timeline-year">2024–2025</span>
+            <div>
+              <div class="timeline-role">数字出版信息中心总监（扭亏为盈）</div>
+              <div class="timeline-company">接力文化 · 飞书ITSM/OA · 10人团队</div>
+            </div>
+          </div>
+          <div class="timeline-item animate-in delay-2">
+            <span class="timeline-year">2021–2024</span>
+            <div>
+              <div class="timeline-role">IT与信息化总监（飞书3年深度落地）</div>
+              <div class="timeline-company">HUBS · 40+流程 · CRM · 3000万+交付</div>
+            </div>
+          </div>
+          <div class="timeline-item animate-in delay-2">
+            <span class="timeline-year">2021</span>
+            <div>
+              <div class="timeline-role">业务拓展经理（6个月签约3500万）</div>
+              <div class="timeline-company">牛津大学出版社</div>
+            </div>
+          </div>
+          <div class="timeline-item animate-in delay-3">
+            <span class="timeline-year">2018–2020</span>
+            <div>
+              <div class="timeline-role">数字业务负责人 / 业务拓展总监</div>
+              <div class="timeline-company">企鹅兰登 · 玩瞳科技 · 产品专利持有人</div>
+            </div>
+          </div>
+          <div class="timeline-item animate-in delay-4">
+            <span class="timeline-year">2013–2017</span>
+            <div>
+              <div class="timeline-role">数字出版负责人（年收入2万→430万）</div>
+              <div class="timeline-company">上海译文出版社 · 创新奖获得者</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7: CLOSING -->
+      <section data-index="6">
+        <h1 class="animate-in" style="font-size: clamp(2rem, 4vw, 3.5rem); font-family: var(--font-cn);">华图 All in AI，<br/><span class="accent">我刚好准备好了。</span></h1>
+        <p class="subtitle animate-in delay-1" style="margin-top: 2rem;">
+          <a href="mailto:mingjian@mjshao.fun" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--card-border);">mingjian@mjshao.fun</a>
+          &nbsp;·&nbsp;
+          <a href="https://mjshao.fun" target="_blank" style="color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--card-border);">mjshao.fun</a>
+        </p>
+        <p class="animate-in delay-2" style="margin-top: 2rem; color: var(--text-muted); font-family: var(--font-cn); font-size: 1rem; max-width: 500px; text-align: center;">
+          飞书千校落地 × AI工具链开发 × 全员赋能推广<br/>
+          这三件事，我都做过。
+        </p>
+      </section>
+
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+      <span>Scroll</span>
+    </div>
+
+    <!-- Webcam Spacer (bottom-right) -->
+    <div class="webcam-spacer"></div>
+
+    <script>
+      // ===== NAVIGATION DOTS =====
+      const deck = document.getElementById('deck');
+      const sections = document.querySelectorAll('section');
+      const navDots = document.getElementById('navDots');
+      const scrollIndicator = document.getElementById('scrollIndicator');
+
+      // Create dots
+      sections.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.setAttribute('aria-label', `Go to section ${index + 1}`);
+        dot.addEventListener('click', () => {
+          sections[index].scrollIntoView({ behavior: 'smooth' });
+        });
+        navDots.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll('.nav-dot');
+
+      // ===== INTERSECTION OBSERVER FOR ANIMATIONS & DOTS =====
+      const observerOptions = {
+        root: deck,
+        threshold: 0.5,
+        rootMargin: '0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          const index = parseInt(entry.target.dataset.index);
+          
+          // Update active dot
+          dots.forEach(d => d.classList.remove('active'));
+          dots[index].classList.add('active');
+
+          // Hide scroll indicator on last section
+          if (index === sections.length - 1) {
+            scrollIndicator.style.opacity = '0';
+          } else {
+            scrollIndicator.style.opacity = '1';
+          }
+
+          // Trigger animations
+          const animatables = entry.target.querySelectorAll('.animate-in');
+          animatables.forEach(el => el.classList.add('visible'));
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+
+      // ===== HIDE SCROLL INDICATOR ON SCROLL =====
+      let scrollTimeout;
+      deck.addEventListener('scroll', () => {
+        scrollIndicator.style.opacity = '0';
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          const currentSection = Math.round(deck.scrollTop / window.innerHeight);
+          if (currentSection < sections.length - 1) {
+            scrollIndicator.style.opacity = '1';
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
